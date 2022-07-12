@@ -1,7 +1,11 @@
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+// import { connect } from 'react-redux';
+import { inc, dec, rnd, rst } from '../actions';
+import { useSelector, useDispatch } from 'react-redux'; 
 
-const Counter = ({counter, inc, dec, rnd, rst}) => {
+const Counter = () => {
+
+    const counter = useSelector(state => state.value)
+    const dispatch = useDispatch();
 
     return(
         <div className ="jumbotron">
@@ -9,19 +13,20 @@ const Counter = ({counter, inc, dec, rnd, rst}) => {
             <h2>{counter}</h2>
             <div className="functions">
                 <div className="main-functions">
-                    <button onClick={inc} className="btn btn-outline-primary">INCREMENT</button>
-                    <button onClick={dec} className="btn btn-outline-warning">DECREMENT</button>
+                    <button onClick={() => dispatch(inc())} className="btn btn-outline-primary">INCREMENT</button>
+                    <button onClick={() => dispatch(dec())} className="btn btn-outline-warning">DECREMENT</button>
                 </div>  
-                <button onClick={rnd} className="btn btn-outline-success">MULTIPLY by RANDOM number</button>
-                <button onClick={rst} className="btn btn-secondary">RESET</button>
+                <button onClick={() => dispatch(rnd())} className="btn btn-outline-success">MULTIPLY by RANDOM number</button>
+                <button onClick={() => dispatch(rst())} className="btn btn-secondary">RESET</button>
             </div>
         </div>
     )
 }
-const mapStateToProps = (state) => {
-    return {
-        counter: state.value,
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         counter: state.value,
+//     }
+// }
 
-export default connect(mapStateToProps, actions)(Counter);
+// export default connect(mapStateToProps, actions)(Counter);
+export default Counter;
